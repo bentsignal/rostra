@@ -1,21 +1,20 @@
 {
-  "name": "ts-package",
+  "name": "tune-in",
   "type": "module",
   "version": "0.1.0",
   "license": "MIT",
-  "description": "TypeScript package template",
+  "description": "Performant & composable state management for React",
   "exports": {
     ".": "./dist/index.mjs",
     "./package.json": "./package.json"
   },
   "keywords": [
-    "typescript",
-    "package",
-    "template"
+    "react",
+    "state management"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/bentsignal/ts-package.git"
+    "url": "https://github.com/bentsignal/tune-in.git"
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",

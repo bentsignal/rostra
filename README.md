@@ -2,33 +2,33 @@
   <img src="https://b9sa6juqtj.ufs.sh/f/WmevHvqCEmRajVTwwtXKdHb7pg9oz0hCWQNZntX6PAcxi34L" alt="Convex Env Example" style="max-width: 700px; width: 100%;">
 </p>
 
-<h2 align="center">Typescript Package</h2>
-<p align="center">Description of package</p>
+<h2 align="center">Tune In</h2>
+<p align="center">Performant & composable state management for React</p>
 
 ### Overview
 
-Make sure to remove my name from license pls and thank u.
+Vrooom
 
 ### Installation
 
 ```
-ni ts-package
+ni tune-in
 ```
 
 ```
-pnpm i ts-package
+pnpm i tune-in
 ```
 
 ```
-bun i ts-package
+bun i tune-in
 ```
 
 ```
-npm i ts-package
+npm i tune-in
 ```
 
 ```
-yarn add ts-package
+yarn add tune-in
 ```
 
 ### Usage
