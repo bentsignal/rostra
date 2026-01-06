@@ -2,11 +2,11 @@ import React from "react";
 import { expect, test } from "vitest";
 import "@testing-library/jest-dom/vitest";
 import { renderHook } from "@testing-library/react";
-import { useNewRadio } from "./use-create-radio";
+import { createRadio } from "./create-radio";
 
 test("useNewRadio returns Radio context and useChannel hook", () => {
   const { result } = renderHook(() =>
-    useNewRadio<{ count: number }>({ name: "TestRadio" }),
+    createRadio<{ count: number }>({ name: "TestRadio" }),
   );
 
   expect(result.current.Radio).toBeDefined();
@@ -17,7 +17,7 @@ test("useNewRadio returns Radio context and useChannel hook", () => {
 
 test("useNewRadio creates Radio with correct initial state", () => {
   const { result } = renderHook(() =>
-    useNewRadio<{ count: number }>({ name: "CounterRadio" }),
+    createRadio<{ count: number }>({ name: "CounterRadio" }),
   );
 
   const { Radio, useChannel } = result.current;
@@ -28,10 +28,10 @@ test("useNewRadio creates Radio with correct initial state", () => {
 
 test("useNewRadio sets different display names correctly", () => {
   const { result: result1 } = renderHook(() =>
-    useNewRadio<{ data: string }>({ name: "RadioOne" }),
+    createRadio<{ data: string }>({ name: "RadioOne" }),
   );
   const { result: result2 } = renderHook(() =>
-    useNewRadio<{ data: string }>({ name: "RadioTwo" }),
+    createRadio<{ data: string }>({ name: "RadioTwo" }),
   );
 
   expect(result1.current.Radio.displayName).toBe("RadioOne");
@@ -40,7 +40,7 @@ test("useNewRadio sets different display names correctly", () => {
 
 test("useChannel returns default context value when used outside Provider", () => {
   const { result } = renderHook(() =>
-    useNewRadio<{ count: number }>({ name: "TestRadio" }),
+    createRadio<{ count: number }>({ name: "TestRadio" }),
   );
 
   const { useChannel } = result.current;
@@ -55,7 +55,7 @@ test("useChannel returns default context value when used outside Provider", () =
 
 test("useChannel works with Radio.Antenna Provider", () => {
   const { result } = renderHook(() =>
-    useNewRadio<{ count: number }>({ name: "TestRadio" }),
+    createRadio<{ count: number }>({ name: "TestRadio" }),
   );
 
   const { Radio, useChannel } = result.current;

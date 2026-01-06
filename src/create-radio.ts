@@ -1,7 +1,7 @@
 import type { Radio, RadioObject } from "./types";
 import { createContext, useContext } from "react";
 
-const useNewRadio = <Data extends object>({ name }: { name: string }) => {
+const createRadio = <Data extends object>({ name }: { name: string }) => {
   const Radio = createContext<RadioObject<Data>>({
     listeners: [],
     value: {} as Data,
@@ -16,4 +16,4 @@ const useNewRadio = <Data extends object>({ name }: { name: string }) => {
   };
 };
 
-export { useNewRadio };
+export { createRadio };

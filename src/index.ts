@@ -1,2 +1,2 @@
-export { useNewRadio } from "./use-create-radio";
+export { createRadio } from "./create-radio";
 export type { Radio } from "./types";
