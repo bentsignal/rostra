@@ -1,5 +1,2 @@
-import type { myType } from "./types";
-
-export function myFunction(input: myType) {
-  return input;
-}
+export { useNewRadio } from "./use-create-radio";
+export type { Radio } from "./types";
