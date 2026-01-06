@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    "eslint",
+    "oxc",
+    "typescript",
+    "unicorn",
+    "react",
+    "import",
+    "jsx-a11y"
+  ],
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/exhaustive-deps": "warn"
+  }
+}
