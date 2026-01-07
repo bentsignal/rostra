@@ -1,23 +1,34 @@
-import type { ReactElement, ReactNode } from "react";
-import { createContext, useContext } from "react";
+import { JSX, ReactNode } from "react";
 
-const createStore = <Data extends object>({
-  store,
-  name,
-}: {
-  store: ({ children }: { children: ReactNode }) => ReactNode;
-  name: string;
-}): {
-  Store: ({ children }: { children: ReactNode }) => ReactElement;
-  useStore: () => Data;
-} => {
-  const Store = ({ children }: { children: ReactNode }) => {
-    return <div>{children}</div>;
-  };
-  return {
-    Store,
-    useStore: () => null as unknown as Data,
-  };
+type ComponentProps = {
+  children?: ReactNode;
 };
+
+function createStore<Value extends object>(): <Props extends object>(
+  hook: (props: Props) => Value,
+) => {
+  Store: (props: Props & ComponentProps) => JSX.Element;
+  useStore: () => Value;
+};
+
+function createStore<Props extends object, Value extends object>(
+  hook: (props: Props) => Value,
+): {
+  Store: (props: Props & ComponentProps) => JSX.Element;
+  useStore: () => Value;
+};
+
+function createStore(hook?: (props: object) => object) {
+  if (hook === undefined) {
+    return (innerHook: (props: object) => object) => ({
+      Store: (props: object) => <div>testing</div>,
+      useStore: () => null as unknown,
+    });
+  }
+  return {
+    Store: (props: object) => <div>testing</div>,
+    useStore: () => null as unknown,
+  };
+}
 
 export { createStore };
