@@ -1,19 +1,57 @@
-import type { Radio, RadioObject } from "./types";
+import type { Radio, RadioInfo } from "./types";
 import { createContext, useContext } from "react";
 
-const createRadio = <Data extends object>({ name }: { name: string }) => {
-  const Radio = createContext<RadioObject<Data>>({
+/**
+/**
+ * Creates a new broadcast context for sharing state.
+ * 
+ * @param name - The name of the broadcast.
+ * @returns An object containing:
+ *   - Broadcast: A React Provider component. The prop `value` must be an object matching the shape of <Data>
+ *   - useChannel: A hook that lets you listen to and select just a piece of the broadcast value using a selector function.
+ *
+ * @example
+ * 
+ * const { Broadcast, useChannel } = createBroadcast<{ count: number }>({
+ *   name: "MyBroadcast",
+ * });
+ * 
+ * const Emitter = ({children}: {children: React.ReactNode}) => {
+ *   const [count, setCount] = useState(0);
+ *   return (
+ *     <Broadcast value={{ count }}>
+ *       {children}
+ *     </Broadcast>
+ *   );
+ * };
+ * 
+ * // child of Emitter
+ * const Receiver = () => {
+ *   const count = useChannel((c) => c.count);
+ *   return (
+ *     <div>
+ *       <p>Count: {count}</p>
+ *     </div>
+ *   );
+ * };
+ * 
+ */
+const createBroadcast = <Data extends object>({ name }: { name: string }) => {
+  const Radio = createContext<RadioInfo<Data>>({
     listeners: [],
     value: {} as Data,
-    version: { current: 0 },
+    version: { current: -1 },
   }) as Radio<Data>;
-  const useChannel = () => useContext(Radio);
+
   Radio.displayName = name;
-  Radio.Antenna = Radio.Provider;
+  Radio.Broadcast = Radio.Provider;
+
+  const useChannel = () => useContext(Radio);
+
   return {
-    Radio,
+    Broadcast: Radio.Provider,
     useChannel,
   };
 };
 
-export { createRadio };
+export { createBroadcast };

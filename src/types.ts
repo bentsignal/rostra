@@ -1,16 +1,18 @@
-import { RefObject } from "react";
 import type { Context, Provider } from "react";
+import { RefObject } from "react";
 
-type Antenna<Value> = Provider<RadioObject<Value>>;
-
-type Radio<Value> = Context<RadioObject<Value>> & {
-  Antenna: Antenna<Value>;
-};
-
-type RadioObject<Value> = {
+type RadioInfo<Value> = {
   listeners: ((payload: readonly [number, Value]) => void)[];
   value: Value;
   version: RefObject<number>;
 };
 
-export type { RadioObject, Radio };
+type Broadcast<Value> = Provider<RadioInfo<Value>>;
+
+type Radio<Value> = Context<RadioInfo<Value>> & {
+  Broadcast: Broadcast<Value>;
+};
+
+type Selector<Value, SelectedValue> = (value: Value) => SelectedValue;
+
+export type { RadioInfo, Radio, Selector };

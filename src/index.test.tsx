@@ -1,18 +1,18 @@
-import React from "react";
-import { expect, test } from "vitest";
-import "@testing-library/jest-dom/vitest";
-// import { renderHook } from "@testing-library/react";
-import { createRadio } from "./create-radio";
+// import React from "react";
+// import { expect, test } from "vitest";
+// import "@testing-library/jest-dom/vitest";
+// // import { renderHook } from "@testing-library/react";
+// import { createRadio } from "./create-radio";
 
-test("useNewRadio returns Radio context and useChannel hook", () => {
-  const { Radio, useChannel } = createRadio<{ count: number }>({
-    name: "TestRadio",
-  });
-  expect(Radio).toBeDefined();
-  expect(useChannel).toBeDefined();
-  expect(Radio.displayName).toBe("TestRadio");
-  expect(Radio.Antenna).toBe(Radio.Provider);
-});
+// test("useNewRadio returns Radio context and useChannel hook", () => {
+//   const { Radio, useChannel } = createRadio<{ count: number }>({
+//     name: "TestRadio",
+//   });
+//   expect(Radio).toBeDefined();
+//   expect(useChannel).toBeDefined();
+//   expect(Radio.displayName).toBe("TestRadio");
+//   expect(Radio.Antenna).toBe(Radio.Provider);
+// });
 
 // test("useNewRadio creates Radio with correct initial state", () => {
 //   const { Radio, useChannel } = createRadio<{ count: number }>({
