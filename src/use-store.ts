@@ -19,18 +19,36 @@ export const useStore = <Value extends object, SelectedValue>(
     throw new Error("useStore must be used within a Store");
   }
 
-  const [selectedValue, setSelectedValue] = useState<
-    readonly [Value, SelectedValue]
-  >([value, selected]);
+  const [state, setState] = useState<readonly [Value, SelectedValue]>([
+    value,
+    selected,
+  ]);
 
   const dispatch = useCallback(
     (payload: Payload<Value>) => {
-      setSelectedValue(([value, selected]) => [
-        payload[1],
-        selector(payload[1]),
-      ]);
+      setState((prev) => {
+        const oldValue = prev[0];
+        const oldSelected = prev[1];
+        const newVersion = payload[0];
+        const newValue = payload[1];
+        if (newVersion <= version) {
+          if (Object.is(oldSelected, selected)) {
+            return prev;
+          } else {
+            return [oldValue, oldSelected] as const;
+          }
+        }
+        if (Object.is(oldValue, newValue)) {
+          return prev;
+        }
+        const newSelected = selector(newValue);
+        if (Object.is(oldSelected, newSelected)) {
+          return prev;
+        }
+        return [newValue, newSelected] as const;
+      });
     },
-    [selector],
+    [selector, version, selected],
   );
 
   useIsomorphicLayoutEffect(() => {
@@ -40,5 +58,5 @@ export const useStore = <Value extends object, SelectedValue>(
     };
   }, [dispatch]);
 
-  return selectedValue[1];
+  return state[1];
 };
