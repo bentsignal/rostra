@@ -1,3 +1,8 @@
+---
+description: "A general overview of this project"
+alwaysApply: true
+---
+
 # Agent Instructions (tune-in)
 
 `tune-in` is a small TypeScript/React library plus an example Next.js app.
