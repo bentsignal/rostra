@@ -20,7 +20,7 @@ function createStore<Value extends object, Props extends object>(
     },
   });
 
-  const Store = (props: Prettify<Props & ComponentProps>) => {
+  function Store(props: Prettify<Props & ComponentProps>) {
     const { children, ...rest } = props;
 
     const hookValue = useHook(rest as Props);
@@ -46,7 +46,7 @@ function createStore<Value extends object, Props extends object>(
         {children}
       </StoreContext.Provider>
     );
-  };
+  }
 
   function useStore<SelectedValue>(
     selector: Selector<Value, SelectedValue>,
