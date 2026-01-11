@@ -20,8 +20,8 @@ type ContextValue<Value extends object> = {
 
 type Selector<Value, SelectedValue> = (value: Value) => SelectedValue;
 
-type UseStoreOptions<Optional extends boolean | undefined = boolean> = {
-  optional?: Optional;
+type UseStoreOptions = {
+  optional?: boolean;
 };
 
 export type {

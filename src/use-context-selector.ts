@@ -2,15 +2,29 @@ import type { ContextValue, Payload, Selector, UseStoreOptions } from "./types";
 import { Context, useCallback, useContext, useState } from "react";
 import { useIsomorphicLayoutEffect } from "./use-iso-layout-effect";
 
-const useContextSelector = <
-  Value extends object,
-  SelectedValue,
-  Optional extends boolean | undefined = undefined,
->(
+function useContextSelector<Value extends object, SelectedValue>(
   context: Context<{ current: ContextValue<Value> }>,
   selector: Selector<Value, SelectedValue>,
-  options?: UseStoreOptions<Optional>,
-): Optional extends true ? SelectedValue | undefined : SelectedValue => {
+  options: UseStoreOptions & { optional: true },
+): SelectedValue | undefined;
+
+function useContextSelector<Value extends object, SelectedValue>(
+  context: Context<{ current: ContextValue<Value> }>,
+  selector: Selector<Value, SelectedValue>,
+  options?: UseStoreOptions & { optional?: false },
+): SelectedValue;
+
+function useContextSelector<Value extends object, SelectedValue>(
+  context: Context<{ current: ContextValue<Value> }>,
+  selector: Selector<Value, SelectedValue>,
+  options?: UseStoreOptions,
+): SelectedValue | undefined;
+
+function useContextSelector<Value extends object, SelectedValue>(
+  context: Context<{ current: ContextValue<Value> }>,
+  selector: Selector<Value, SelectedValue>,
+  options?: UseStoreOptions,
+): SelectedValue | undefined {
   const contextValue = useContext(context);
 
   const {
@@ -21,17 +35,11 @@ const useContextSelector = <
 
   const isMissingProvider = version === -1;
 
-  type ReturnValue = Optional extends true
-    ? SelectedValue | undefined
-    : SelectedValue;
-  const selected = (isMissingProvider
-    ? undefined
-    : selector(value)) as unknown as ReturnValue;
+  const selected = isMissingProvider ? undefined : selector(value);
 
-  const [state, setState] = useState<readonly [Value, ReturnValue]>([
-    value,
-    selected,
-  ]);
+  const [state, setState] = useState<
+    readonly [Value, SelectedValue | undefined]
+  >([value, selected]);
 
   const dispatch = useCallback(
     (payload: Payload<Value>) => {
@@ -48,12 +56,12 @@ const useContextSelector = <
         if (Object.is(oldValue, newValue)) {
           return prev;
         }
-        const oldSelected = prev[1] as unknown as SelectedValue;
+        const oldSelected = prev[1];
         const newSelected = selector(newValue);
         if (Object.is(oldSelected, newSelected)) {
           return prev;
         }
-        return [newValue, newSelected as unknown as ReturnValue] as const;
+        return [newValue, newSelected] as const;
       });
     },
     [isMissingProvider, selector, version],
@@ -71,12 +79,12 @@ const useContextSelector = <
 
   if (isMissingProvider) {
     if (options?.optional) {
-      return undefined as ReturnValue;
+      return undefined;
     }
     throw new Error("useStore must be used within a Store");
   }
 
-  return state[1] as ReturnValue;
-};
+  return state[1];
+}
 
 export { useContextSelector };

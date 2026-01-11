@@ -48,18 +48,22 @@ const createStore = <Value extends object, Props extends object>(
     );
   };
 
-  const useStore = <
-    SelectedValue extends unknown,
-    Optional extends boolean | undefined = undefined,
-  >(
+  function useStore<SelectedValue>(
     selector: Selector<Value, SelectedValue>,
-    options?: UseStoreOptions<Optional>,
-  ): Optional extends true ? SelectedValue | undefined : SelectedValue =>
-    useContextSelector<Value, SelectedValue, Optional>(
-      StoreContext,
-      selector,
-      options,
-    );
+    options: UseStoreOptions & { optional: true },
+  ): SelectedValue | undefined;
+
+  function useStore<SelectedValue>(
+    selector: Selector<Value, SelectedValue>,
+    options?: UseStoreOptions & { optional?: false },
+  ): SelectedValue;
+
+  function useStore<SelectedValue>(
+    selector: Selector<Value, SelectedValue>,
+    options?: UseStoreOptions,
+  ): SelectedValue | undefined {
+    return useContextSelector(StoreContext, selector, options);
+  }
 
   return {
     Store,
