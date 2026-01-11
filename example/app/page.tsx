@@ -7,11 +7,13 @@ export default function Home() {
         <Counter.Wrapper>
           <Counter.Container>
             <Counter.Value1 />
+            <Counter.Value1DivBy3 />
             <Counter.IncrementButton1 />
             <Counter.DecrementButton1 />
           </Counter.Container>
           <Counter.Container>
             <Counter.Value2 />
+            <Counter.Value2DivBy5 />
             <Counter.IncrementButton2 />
             <Counter.DecrementButton2 />
           </Counter.Container>

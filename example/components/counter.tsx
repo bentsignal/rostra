@@ -1,28 +1,28 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { createStore } from "../../src/create-store";
 
-export const { Store, useStore } = createStore(
-  ({ initialCount = 10 }: { initialCount?: number }) => {
-    const [count1, setCount1] = useState(initialCount);
-    const increment1 = useCallback(() => setCount1((prev) => prev + 1), []);
-    const decrement1 = useCallback(() => setCount1((prev) => prev - 1), []);
+const useCreateStore = () => {
+  const [count1, setCount1] = useState(0);
+  const increment1 = () => setCount1((prev) => prev + 1);
+  const decrement1 = () => setCount1((prev) => prev - 1);
 
-    const [count2, setCount2] = useState(initialCount);
-    const increment2 = useCallback(() => setCount2((prev) => prev + 1), []);
-    const decrement2 = useCallback(() => setCount2((prev) => prev - 1), []);
+  const [count2, setCount2] = useState(0);
+  const increment2 = () => setCount2((prev) => prev + 1);
+  const decrement2 = () => setCount2((prev) => prev - 1);
 
-    return {
-      count1,
-      count2,
-      increment1,
-      decrement1,
-      increment2,
-      decrement2,
-    };
-  },
-);
+  return {
+    count1,
+    count2,
+    increment1,
+    decrement1,
+    increment2,
+    decrement2,
+  };
+};
+
+export const { Store, useStore } = createStore(useCreateStore);
 
 export const Wrapper = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -43,9 +43,23 @@ export const Value1 = () => {
   return <p>Count1: {count1}</p>;
 };
 
+export const Value1DivBy3 = () => {
+  const isDivBy3 = useStore((store) => store.count1 % 3 === 0);
+  return (
+    <p>Count1{isDivBy3 ? "is divisible by 3" : "is not divisible by 3"}</p>
+  );
+};
+
 export const Value2 = () => {
   const count2 = useStore((store) => store.count2);
   return <p>Count2: {count2}</p>;
+};
+
+export const Value2DivBy5 = () => {
+  const isDivBy5 = useStore((store) => store.count2 % 5 === 0);
+  return (
+    <p>Count2{isDivBy5 ? "is divisible by 5" : "is not divisible by 5"}</p>
+  );
 };
 
 export const IncrementButton1 = () => {
