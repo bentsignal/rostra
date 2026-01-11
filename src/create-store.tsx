@@ -1,7 +1,7 @@
 import type { ComponentProps, ContextValue, Prettify, Selector } from "./types";
 import { createContext, RefObject, useRef } from "react";
+import { useContextSelector } from "./use-context-selector";
 import { useIsomorphicLayoutEffect } from "./use-iso-layout-effect";
-import { useStore as useStoreBase } from "./use-store";
 
 const createStore = <Value extends object, Props extends object>(
   useHook: (props: Props) => Value,
@@ -44,7 +44,7 @@ const createStore = <Value extends object, Props extends object>(
 
   const useStore = <SelectedValue extends unknown>(
     selector: Selector<Value, SelectedValue>,
-  ) => useStoreBase(StoreContext, selector);
+  ) => useContextSelector(StoreContext, selector);
 
   return {
     Store,

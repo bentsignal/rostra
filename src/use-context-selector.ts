@@ -2,7 +2,7 @@ import type { ContextValue, Payload, Selector } from "./types";
 import { Context, useCallback, useContext, useState } from "react";
 import { useIsomorphicLayoutEffect } from "./use-iso-layout-effect";
 
-export const useStore = <Value extends object, SelectedValue>(
+const useContextSelector = <Value extends object, SelectedValue>(
   context: Context<{ current: ContextValue<Value> }>,
   selector: Selector<Value, SelectedValue>,
 ) => {
@@ -27,20 +27,16 @@ export const useStore = <Value extends object, SelectedValue>(
   const dispatch = useCallback(
     (payload: Payload<Value>) => {
       setState((prev) => {
-        const oldValue = prev[0];
-        const oldSelected = prev[1];
         const newVersion = payload[0];
-        const newValue = payload[1];
         if (newVersion <= version) {
-          if (Object.is(oldSelected, selected)) {
-            return prev;
-          } else {
-            return [oldValue, oldSelected] as const;
-          }
+          return prev;
         }
+        const oldValue = prev[0];
+        const newValue = payload[1];
         if (Object.is(oldValue, newValue)) {
           return prev;
         }
+        const oldSelected = prev[1];
         const newSelected = selector(newValue);
         if (Object.is(oldSelected, newSelected)) {
           return prev;
@@ -48,7 +44,7 @@ export const useStore = <Value extends object, SelectedValue>(
         return [newValue, newSelected] as const;
       });
     },
-    [selector, version, selected],
+    [selector, version],
   );
 
   useIsomorphicLayoutEffect(() => {
@@ -60,3 +56,5 @@ export const useStore = <Value extends object, SelectedValue>(
 
   return state[1];
 };
+
+export { useContextSelector };
