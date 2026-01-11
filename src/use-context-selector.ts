@@ -11,14 +11,8 @@ function useContextSelector<Value extends object, SelectedValue>(
 function useContextSelector<Value extends object, SelectedValue>(
   context: Context<{ current: ContextValue<Value> }>,
   selector: Selector<Value, SelectedValue>,
-  options?: UseStoreOptions & { optional?: false },
-): SelectedValue;
-
-function useContextSelector<Value extends object, SelectedValue>(
-  context: Context<{ current: ContextValue<Value> }>,
-  selector: Selector<Value, SelectedValue>,
   options?: UseStoreOptions,
-): SelectedValue | undefined;
+): SelectedValue;
 
 function useContextSelector<Value extends object, SelectedValue>(
   context: Context<{ current: ContextValue<Value> }>,

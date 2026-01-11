@@ -55,7 +55,7 @@ const createStore = <Value extends object, Props extends object>(
 
   function useStore<SelectedValue>(
     selector: Selector<Value, SelectedValue>,
-    options?: UseStoreOptions & { optional?: false },
+    options?: UseStoreOptions,
   ): SelectedValue;
 
   function useStore<SelectedValue>(
