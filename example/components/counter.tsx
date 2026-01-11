@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { createStore } from "../../src/create-store";
 
-const useCreateStore = () => {
+function useCreateStore() {
   const [count1, setCount1] = useState(0);
   const increment1 = () => setCount1((prev) => prev + 1);
   const decrement1 = () => setCount1((prev) => prev - 1);
@@ -20,52 +20,52 @@ const useCreateStore = () => {
     increment2,
     decrement2,
   };
-};
+}
 
 export const { Store, useStore } = createStore(useCreateStore);
 
-export const Wrapper = ({ children }: { children: React.ReactNode }) => {
+export function Wrapper({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center justify-center gap-4">{children}</div>
   );
-};
+}
 
-export const Container = ({ children }: { children: React.ReactNode }) => {
+export function Container({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       {children}
     </div>
   );
-};
+}
 
-export const Value1 = () => {
+export function Value1() {
   const count1 = useStore((store) => store.count1, { optional: true });
   if (count1 === undefined) {
     return <p>Count1: undefined</p>;
   }
   return <p>Count1: {count1}</p>;
-};
+}
 
-export const Value1DivBy3 = () => {
+export function Value1DivBy3() {
   const isDivBy3 = useStore((store) => store.count1 % 3 === 0);
   return (
     <p>Count1{isDivBy3 ? " is divisible by 3" : " is not divisible by 3"}</p>
   );
-};
+}
 
-export const Value2 = () => {
+export function Value2() {
   const count2 = useStore((store) => store.count2);
   return <p>Count2: {count2}</p>;
-};
+}
 
-export const Value2DivBy5 = () => {
+export function Value2DivBy5() {
   const isDivBy5 = useStore((store) => store.count2 % 5 === 0);
   return (
     <p>Count2{isDivBy5 ? " is divisible by 5" : " is not divisible by 5"}</p>
   );
-};
+}
 
-export const IncrementButton1 = () => {
+export function IncrementButton1() {
   const increment1 = useStore((store) => store.increment1);
   return (
     <button
@@ -75,9 +75,9 @@ export const IncrementButton1 = () => {
       Increment
     </button>
   );
-};
+}
 
-export const IncrementButton2 = () => {
+export function IncrementButton2() {
   const increment2 = useStore((store) => store.increment2);
   return (
     <button
@@ -87,7 +87,7 @@ export const IncrementButton2 = () => {
       Increment
     </button>
   );
-};
+}
 
 export const DecrementButton2 = () => {
   const decrement2 = useStore((store) => store.decrement2);
