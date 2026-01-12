@@ -3,9 +3,9 @@ description: "A general overview of this project"
 alwaysApply: true
 ---
 
-# Agent Instructions (tune-in)
+# Agent Instructions (rostra)
 
-`tune-in` is a small TypeScript/React library plus an example Next.js app.
+`rostra` is a small TypeScript/React library plus an example Next.js app.
 
 The goal of this package is to wrap React's context api to provide better performance by allowing users to only select small slices of the context object, preventing unnecessary re-renders.
 

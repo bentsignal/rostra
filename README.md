@@ -2,8 +2,8 @@
   <img src="https://b9sa6juqtj.ufs.sh/f/WmevHvqCEmRajVTwwtXKdHb7pg9oz0hCWQNZntX6PAcxi34L" alt="Convex Env Example" style="max-width: 700px; width: 100%;">
 </p>
 
-<h2 align="center">Tune In</h2>
-<p align="center">Performant & composable state management for React</p>
+<h2 align="center">Rostra</h2>
+<p align="center">Performant state management for React</p>
 
 ### Overview
 
@@ -12,23 +12,23 @@ Vrooom
 ### Installation
 
 ```
-ni tune-in
+ni rostra
 ```
 
 ```
-pnpm i tune-in
+pnpm i rostra
 ```
 
 ```
-bun i tune-in
+bun i rostra
 ```
 
 ```
-npm i tune-in
+npm i rostra
 ```
 
 ```
-yarn add tune-in
+yarn add rostra
 ```
 
 ### Usage
