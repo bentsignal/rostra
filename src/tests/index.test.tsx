@@ -9,7 +9,7 @@ import {
   renderHook,
   screen,
 } from "@testing-library/react";
-import { createStore } from "./create-store";
+import { createStore } from "../create-store";
 
 afterEach(cleanup);
 
