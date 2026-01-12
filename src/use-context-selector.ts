@@ -1,6 +1,7 @@
 import type { ContextValue, Payload, Selector, UseStoreOptions } from "./types";
-import { Context, useCallback, useContext, useState } from "react";
-import { useIsomorphicLayoutEffect } from "./use-iso-layout-effect";
+import { Context, useContext, useState } from "react";
+import { useEventCallback } from "./utils/use-event-callback";
+import { useIsomorphicLayoutEffect } from "./utils/use-iso-layout-effect";
 
 function useContextSelector<Value extends object, SelectedValue>(
   context: Context<{ current: ContextValue<Value> }>,
@@ -35,41 +36,40 @@ function useContextSelector<Value extends object, SelectedValue>(
     readonly [Value, SelectedValue | undefined]
   >([value, selected]);
 
-  const dispatch = useCallback(
-    (payload: Payload<Value>) => {
-      setState((prev) => {
-        if (isMissingProvider) {
-          return prev;
-        }
-        const newVersion = payload[0];
-        if (newVersion <= version) {
-          return prev;
-        }
-        const oldValue = prev[0];
-        const newValue = payload[1];
-        if (Object.is(oldValue, newValue)) {
-          return prev;
-        }
-        const oldSelected = prev[1];
-        const newSelected = selector(newValue);
-        if (Object.is(oldSelected, newSelected)) {
-          return prev;
-        }
-        return [newValue, newSelected] as const;
-      });
-    },
-    [isMissingProvider, selector, version],
-  );
+  const dispatch = (payload: Payload<Value>) => {
+    setState((prev) => {
+      if (isMissingProvider) {
+        return prev;
+      }
+      const newVersion = payload[0];
+      if (newVersion <= version) {
+        return prev;
+      }
+      const oldValue = prev[0];
+      const newValue = payload[1];
+      if (Object.is(oldValue, newValue)) {
+        return prev;
+      }
+      const oldSelected = prev[1];
+      const newSelected = selector(newValue);
+      if (Object.is(oldSelected, newSelected)) {
+        return prev;
+      }
+      return [newValue, newSelected] as const;
+    });
+  };
+
+  const stableDispatch = useEventCallback(dispatch);
 
   useIsomorphicLayoutEffect(() => {
     if (isMissingProvider) {
       return;
     }
-    subscribers.push(dispatch);
+    subscribers.push(stableDispatch);
     return () => {
-      subscribers.splice(subscribers.indexOf(dispatch), 1);
+      subscribers.splice(subscribers.indexOf(stableDispatch), 1);
     };
-  }, [dispatch, isMissingProvider, subscribers]);
+  }, [stableDispatch, isMissingProvider, subscribers]);
 
   if (isMissingProvider) {
     if (options?.optional) {

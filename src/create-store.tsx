@@ -7,7 +7,7 @@ import type {
 } from "./types";
 import { createContext, RefObject, useRef } from "react";
 import { useContextSelector } from "./use-context-selector";
-import { useIsomorphicLayoutEffect } from "./use-iso-layout-effect";
+import { useIsomorphicLayoutEffect } from "./utils/use-iso-layout-effect";
 
 function createStore<Value extends object, Props extends object>(
   useHook: (props: Props) => Value,
