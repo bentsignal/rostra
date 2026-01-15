@@ -6,7 +6,7 @@ import type {
   UseStoreOptions,
 } from "./types";
 import { createContext, RefObject, useRef } from "react";
-import { useContextSelector } from "./use-context-selector";
+import { useSelector } from "./use-selector";
 import { useIsomorphicLayoutEffect } from "./utils/use-iso-layout-effect";
 
 function createStore<Value extends object, Props extends object>(
@@ -62,7 +62,7 @@ function createStore<Value extends object, Props extends object>(
     selector: Selector<Value, SelectedValue>,
     options?: UseStoreOptions,
   ): SelectedValue | undefined {
-    return useContextSelector(StoreContext, selector, options);
+    return useSelector(StoreContext, selector, options);
   }
 
   return {

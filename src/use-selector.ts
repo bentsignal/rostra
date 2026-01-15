@@ -3,19 +3,19 @@ import { Context, useContext, useState } from "react";
 import { useEventCallback } from "./utils/use-event-callback";
 import { useIsomorphicLayoutEffect } from "./utils/use-iso-layout-effect";
 
-function useContextSelector<Value extends object, SelectedValue>(
+function useSelector<Value extends object, SelectedValue>(
   context: Context<{ current: ContextValue<Value> }>,
   selector: Selector<Value, SelectedValue>,
   options: UseStoreOptions & { optional: true },
 ): SelectedValue | undefined;
 
-function useContextSelector<Value extends object, SelectedValue>(
+function useSelector<Value extends object, SelectedValue>(
   context: Context<{ current: ContextValue<Value> }>,
   selector: Selector<Value, SelectedValue>,
   options?: UseStoreOptions,
 ): SelectedValue;
 
-function useContextSelector<Value extends object, SelectedValue>(
+function useSelector<Value extends object, SelectedValue>(
   context: Context<{ current: ContextValue<Value> }>,
   selector: Selector<Value, SelectedValue>,
   options?: UseStoreOptions,
@@ -81,4 +81,4 @@ function useContextSelector<Value extends object, SelectedValue>(
   return state[1];
 }
 
-export { useContextSelector };
+export { useSelector };
