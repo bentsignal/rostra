@@ -1,5 +1,11 @@
 # rostra
 
+## 0.4.0
+
+### Minor Changes
+
+- [`e554b47`](https://github.com/bentsignal/rostra/commit/e554b47cbcdb6eeb002d30a46738ad07b2436799) Thanks [@bentsignal](https://github.com/bentsignal)! - testing token free release
+
 ## 0.3.0
 
 ### Minor Changes
