@@ -1,4 +1,5 @@
 name: Release
+
 on:
   pull_request:
     branches: ["main"]
@@ -21,6 +22,9 @@ jobs:
 
       - name: Setup
         uses: ./.github/setup
+
+      - name: Upgrade npm (required for OIDC trusted publishing)
+        run: npm install -g npm@^11.5.1
 
       - name: Build
         run: bun run build
