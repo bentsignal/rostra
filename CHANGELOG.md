@@ -1,5 +1,11 @@
 # rostra
 
+## 0.5.0
+
+### Minor Changes
+
+- [`0eaa56b`](https://github.com/bentsignal/rostra/commit/0eaa56b767e32c49c83b9d88e282881754adc508) Thanks [@bentsignal](https://github.com/bentsignal)! - more testing for trusted publishing
+
 ## 0.4.0
 
 ### Minor Changes
