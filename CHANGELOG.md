@@ -1,5 +1,11 @@
 # rostra
 
+## 0.6.0
+
+### Minor Changes
+
+- [`49bcd2f`](https://github.com/bentsignal/rostra/commit/49bcd2fc858b3bb3690b68dc1865865814acd99a) Thanks [@bentsignal](https://github.com/bentsignal)! - testing jsdocs after build
+
 ## 0.5.0
 
 ### Minor Changes
