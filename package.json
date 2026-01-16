@@ -2,7 +2,7 @@
   "name": "rostra",
   "private": false,
   "type": "module",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Performant state management for React",
   "exports": {
