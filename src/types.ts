@@ -1,4 +1,4 @@
-import { ReactNode, RefObject } from "react";
+import type { ComponentType, ReactNode, RefObject } from "react";
 
 type Prettify<T> = { [K in keyof T]: T[K] } & {};
 
@@ -24,6 +24,52 @@ type UseStoreOptions = {
   optional?: boolean;
 };
 
+type UseStore<Value extends object> = {
+  /**
+   * Returns the value returned by the `selector` function. Will throw an error when
+   * used outside the store (unless `optional: true` is provided, see example
+   * below).
+   *
+   * @example
+   * const count = useStore((store) => store.count);
+   * console.log(count); // value of store.count, throws an error if used outside its `<Store>` component
+   *
+   * @example
+   * const count = useStore((store) => store.count, { optional: true });
+   * console.log(count); // value of store.count or undefined if used outside the store
+   *
+   * @link see more at https://github.com/bentsignal/rostra
+   */
+  <SelectedValue>(
+    selector: Selector<Value, SelectedValue>,
+    options: UseStoreOptions & { optional: true },
+  ): SelectedValue | undefined;
+  /**
+   * Returns the value returned by the `selector` function. Will throw an error when
+   * used outside the store (unless `optional: true` is provided, see example
+   * below).
+   *
+   * @example
+   * const count = useStore((store) => store.count);
+   * console.log(count); // value of store.count, throws an error if used outside its `<Store>` component
+   *
+   * @example
+   * const count = useStore((store) => store.count, { optional: true });
+   * console.log(count); // value of store.count or undefined if used outside its `<Store>` component
+   *
+   * @link see more at https://github.com/bentsignal/rostra
+   */
+  <SelectedValue>(
+    selector: Selector<Value, SelectedValue>,
+    options?: UseStoreOptions,
+  ): SelectedValue;
+};
+
+type StoreApi<Value extends object, Props extends object> = {
+  Store: ComponentType<Prettify<Props & ComponentProps>>;
+  useStore: UseStore<Value>;
+};
+
 export type {
   Prettify,
   ComponentProps,
@@ -32,4 +78,6 @@ export type {
   Version,
   Payload,
   UseStoreOptions,
+  UseStore,
+  StoreApi,
 };
