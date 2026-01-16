@@ -28,37 +28,30 @@ import { useIsomorphicLayoutEffect } from "./utils/use-iso-layout-effect";
  *     in the component using `useStore` if the selected slice of state actually changes.
  *
  * @example
- *  const useInternalStore = ({ initialCount }: { initialCount: number }) => {
+ *  function useInternalStore({ initialCount }: { initialCount: number }) {
  *    const [count, setCount] = useState(initialCount);
  *    const increment = () => setCount((prev) => prev + 1);
- *    const decrement = () => setCount((prev) => prev - 1);
  *
- *    return { count, increment, decrement };
+ *    return { count, increment };
  *  };
  *
  *  const { Store, useStore } = createStore(useInternalStore);
  *
- *  const Counter = () => {
+ *  function Counter() {
  *    return (
  *      <Store initialCount={0}>
  *        <Value />
  *        <IncrementButton />
- *        <DecrementButton />
  *      </Store>
  *    );
  *  };
  *
- * const IncrementButton = () => {
+ * function IncrementButton() {
  *    const increment = useStore(store => store.increment);
  *    return <button onClick={increment}>Increment</button>;
  * };
  *
- * const DecrementButton = () => {
- *    const decrement = useStore(store => store.decrement);
- *    return <button onClick={decrement}>Decrement</button>;
- * };
- *
- * const Value = () => {
+ * function Value() {
  *    const count = useStore(store => store.count);
  *    return <p>Count: {count}</p>;
  * };
