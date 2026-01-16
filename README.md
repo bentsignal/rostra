@@ -27,9 +27,13 @@ npm i rostra
 yarn add rostra
 ```
 
+<br />
+
 ### Overview
 
 This library is an attempt to find a good balance between the dx and performance of solutions like Zustand, while providing the reusability of React Context.
+
+<br />
 
 ### Usage
 
@@ -111,6 +115,8 @@ function Value() {
   return <p>Count: {count}</p>;
 };
 ```
+
+--- 
 
 > [!CAUTION]
 All of the statements made regarding re-render behavior assume you have the React Compiler enabled. If you do not, you will still have to manually memoize state inside `useInternalStore`. In the example above, `increment` would need to be wrapped in `useCallback`.
