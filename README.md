@@ -29,9 +29,12 @@ yarn add rostra
 
 ### Overview
 
-This library is an attempt to find a good balance between the DX and performance of solutions like Zustand, while providing the reusability of React Context.
+This library is an attempt to find a good balance between the DX and performance of solutions like [Zustand](https://github.com/pmndrs/zustand?tab=readme-ov-file), while providing the reusability of [React Context](https://react.dev/learn/passing-data-deeply-with-context). All while keeping boilerplate to an absolute minimum.
 
 ### Usage
+
+> [!CAUTION]
+All of the statements made regarding re-render behavior assume you have the React Compiler enabled. If you do not, you will still have to manually memoize state inside `useInternalStore`.
 
 Create a hook to store your state. I tend to name it `useInternalStore`, but you can name it whatever you'd like.
 
@@ -112,7 +115,7 @@ function Value() {
 };
 ```
 
-You can also have props passed into your store:  
+If you want to pass props into your store, specify them in `useInternalStore`. They will then become available on `Store`.
 
 ```tsx
 import { useState } from "react";
@@ -136,9 +139,41 @@ function Counter() {
 };
 ```
 
----
+If you would like to establish a strict return type for your store, you can specify that when calling `createStore`. This can be useful if you want to see type errors from breaking changes inside your store definition, rather than scattered throughout your project.
 
-> [!CAUTION]
-All of the statements made regarding re-render behavior assume you have the React Compiler enabled. If you do not, you will still have to manually memoize state inside `useInternalStore`. In the example above, `increment` would need to be wrapped in `useCallback`.
+The only catch is that you must then also specify the type of your props.
 
+```tsx
+import { useState } from "react";
+import { createStore } from "rostra";
 
+type StoreProps = {
+  initialCount: number;
+};
+
+type StoreType = {
+  count: number;
+  increment: () => void;
+};
+
+function useInternalStore({ initialCount }: StoreProps) {
+  const [count, setCount] = useState(initialCount);
+  const increment = () => setCount(prev => prev + 1);
+  return { count, increment };
+};
+
+const { Store, useStore } = createStore<StoreProps, StoreType>(useInternalStore);
+
+function Counter() {
+  return (
+    <Store initialCount={10}>
+      <Value />
+      <IncrementButton />
+    </Store>
+  );
+};
+```
+
+### Credits
+
+This library is heavily inspired by [@fluentui/use-context-selector](https://www.npmjs.com/package/@fluentui/react-context-selector). I used it for many projects and was pretty happy with it, but I always ended up writing the same helper functions to improve the DX. I figured I would take a crack at building something similar from the ground up to see just how simple things could get in userland.
