@@ -49,17 +49,17 @@ import { useIsomorphicLayoutEffect } from "./utils/use-iso-layout-effect";
  *  };
  *
  * const IncrementButton = () => {
- *    const increment = useStore((store) => store.increment);
+ *    const increment = useStore(store => store.increment);
  *    return <button onClick={increment}>Increment</button>;
  * };
  *
  * const DecrementButton = () => {
- *    const decrement = useStore((store) => store.decrement);
+ *    const decrement = useStore(store => store.decrement);
  *    return <button onClick={decrement}>Decrement</button>;
  * };
  *
  * const Value = () => {
- *    const count = useStore((store) => store.count);
+ *    const count = useStore(store => store.count);
  *    return <p>Count: {count}</p>;
  * };
  *

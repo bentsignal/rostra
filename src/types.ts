@@ -50,11 +50,11 @@ type UseStore<Value extends object> = {
    * below).
    *
    * @example
-   * const count = useStore((store) => store.count);
+   * const count = useStore(store => store.count);
    * console.log(count); // value of store.count, throws an error if used outside its `<Store>` component
    *
    * @example
-   * const count = useStore((store) => store.count, { optional: true });
+   * const count = useStore(((store) => store.count), { optional: true });
    * console.log(count); // value of store.count or undefined if used outside its `<Store>` component
    *
    * @link see more at https://github.com/bentsignal/rostra
