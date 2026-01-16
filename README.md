@@ -74,15 +74,16 @@ function Counter() {
   );
 };
 
+function Value() {
+  const count = useStore(store => store.count);
+  return <p>Count: {count}</p>;
+};
+
 function IncrementButton() {
   const increment = useStore(store => store.increment);
   return <button onClick={increment}>Increment</button>;
 };
 
-function Value() {
-  const count = useStore(store => store.count);
-  return <p>Count: {count}</p>;
-};
 ```
 
 If you try to use `useStore` outside the scope of its corresponding `Store` component, it will throw an error. This is typically a good thing, but sometimes you may want to optionally use a store's value if it exists in scope.
@@ -101,17 +102,17 @@ function Counter() {
   );
 };
 
-function IncrementButton() {
-  const increment = useStore(store => store.increment);
-  return <button onClick={increment}>Increment</button>;
-};
-
 function Value() {
   const count = useStore(((store) => store.count), { optional: true });
   if (count === undefined) {
     return <p>Count not found</p>;
   }
   return <p>Count: {count}</p>;
+};
+
+function IncrementButton() {
+  const increment = useStore(store => store.increment);
+  return <button onClick={increment}>Increment</button>;
 };
 ```
 
