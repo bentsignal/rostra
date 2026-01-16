@@ -27,13 +27,9 @@ npm i rostra
 yarn add rostra
 ```
 
-<br />
-
 ### Overview
 
 This library is an attempt to find a good balance between the dx and performance of solutions like Zustand, while providing the reusability of React Context.
-
-<br />
 
 ### Usage
 
@@ -68,7 +64,7 @@ You can then use these throughout your app as you'd like. In the example below, 
 ```tsx
 function Counter() {
   return (
-    <Store initialCount={0}>
+    <Store>
       <Value />
       <IncrementButton />
     </Store>
@@ -113,6 +109,30 @@ function Value() {
     return <p>Count not found</p>;
   }
   return <p>Count: {count}</p>;
+};
+```
+
+You can also have props passed into your store:  
+
+```tsx
+import { useState } from "react";
+import { createStore } from "rostra";
+
+function useInternalStore({ initialCount }: { initialCount: number }) {
+  const [count, setCount] = useState(initialCount);
+  const increment = () => setState(prev => prev + 1);
+  return { count, increment };
+};
+
+const { Store, useStore } = createStore(useInternalStore);
+
+function Counter() {
+  return (
+    <Store initialCount={10}>
+      <Value />
+      <IncrementButton />
+    </Store>
+  );
 };
 ```
 
