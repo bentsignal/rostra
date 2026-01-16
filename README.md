@@ -29,11 +29,11 @@ yarn add rostra
 
 ### Overview
 
-This library is an attempt to find a good balance between the dx and performance of solutions like Zustand, while providing the reusability of React Context.
+This library is an attempt to find a good balance between the DX and performance of solutions like Zustand, while providing the reusability of React Context.
 
 ### Usage
 
-Create a hook to store your state. I tend to name it `useInternalStore`, but you can name them whatever you'd like.
+Create a hook to store your state. I tend to name it `useInternalStore`, but you can name it whatever you'd like.
 
 Pass that hook into `createStore`, and it will return two things for you:
 
@@ -46,7 +46,7 @@ import { createStore } from "rostra";
 
 function useInternalStore() {
   const [count, setCount] = useState(0);
-  const increment = () => setState(prev => prev + 1);
+  const increment = () => setCount(prev => prev + 1);
   return { count, increment };
 };
 
@@ -55,7 +55,7 @@ const { Store, useStore } = createStore(useInternalStore);
 <br />
 
 > [!IMPORTANT]
-`useInternalStore` should only be used as an argument for `createStore`. You should not use `useInternalStore` anywhere else in your code. When you want to access the store's state, use `useStore`.
+`useInternalStore` should only be used as an argument for `createStore`. You should not use it anywhere else in your code. When you want to access the store's state, use its associated `useStore`.
 
 <br />
 
@@ -82,9 +82,9 @@ function Value() {
 };
 ```
 
-If you try to use `useStore` outside the scope of its corresponding `Store` component, it will throw an error. This is typically a good thing, but sometimes you may want to optionally use a stores value if it exists. 
+If you try to use `useStore` outside the scope of its corresponding `Store` component, it will throw an error. This is typically a good thing, but sometimes you may want to optionally use a store's value if it exists in scope.
 
-To do this, you can tell the hook that the stores presence is optional. The will type the returned value from `useStore` as `Value | undefined`, and will not throw. 
+To do this, you can tell the hook that the store's presence is optional. This will type the returned value from `useStore` as `Value | undefined`, and `useStore` will not throw.
 
 ```tsx
 function Counter() {
@@ -104,7 +104,7 @@ function IncrementButton() {
 };
 
 function Value() {
-  const count = useStore(((store) => store.count), { optional: true});
+  const count = useStore(((store) => store.count), { optional: true });
   if (count === undefined) {
     return <p>Count not found</p>;
   }
@@ -120,7 +120,7 @@ import { createStore } from "rostra";
 
 function useInternalStore({ initialCount }: { initialCount: number }) {
   const [count, setCount] = useState(initialCount);
-  const increment = () => setState(prev => prev + 1);
+  const increment = () => setCount(prev => prev + 1);
   return { count, increment };
 };
 
@@ -136,7 +136,7 @@ function Counter() {
 };
 ```
 
---- 
+---
 
 > [!CAUTION]
 All of the statements made regarding re-render behavior assume you have the React Compiler enabled. If you do not, you will still have to manually memoize state inside `useInternalStore`. In the example above, `increment` would need to be wrapped in `useCallback`.
