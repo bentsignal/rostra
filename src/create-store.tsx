@@ -59,9 +59,9 @@ import { useIsomorphicLayoutEffect } from "./utils/use-iso-layout-effect";
  * @link see more at https://github.com/bentsignal/rostra
  *
  */
-function createStore<Value extends object, Props extends object>(
+function createStore<Props extends object, Value extends object>(
   useInternalStore: (props: Props) => Value,
-): StoreApi<Value, Props> {
+): StoreApi<Props, Value> {
   const StoreContext = createContext<RefObject<ContextValue<Value>>>({
     current: {
       subscribers: [],
