@@ -1,13 +1,9 @@
 <p align="center">
-  <img src="https://b9sa6juqtj.ufs.sh/f/WmevHvqCEmRajVTwwtXKdHb7pg9oz0hCWQNZntX6PAcxi34L" alt="Convex Env Example" style="max-width: 700px; width: 100%;">
+  <img src="https://b9sa6juqtj.ufs.sh/f/WmevHvqCEmRaMr1nqHie41ygPEGcTkSVa8Y2Ux0JXOot3Lms" alt="Rostra Example" style="max-width: 700px; width: 100%;">
 </p>
 
 <h2 align="center">Rostra</h2>
 <p align="center">Performant state management for React</p>
-
-### Overview
-
-Vrooom
 
 ### Installation
 
@@ -30,6 +26,10 @@ npm i rostra
 ```
 yarn add rostra
 ```
+
+### Overview
+
+Vrooom
 
 ### Usage
 
