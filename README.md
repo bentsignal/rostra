@@ -52,9 +52,12 @@ function useInternalStore() {
 
 const { Store, useStore } = createStore(useInternalStore);
 ```
+<br />
 
-> [!WARNING]
+> [!IMPORTANT]
 `useInternalStore` should only be used as an argument for `createStore`. You should not use `useInternalStore` anywhere else in your code. When you want to access the store's state, use `useStore`.
+
+<br />
 
 You can then use these throughout your app as you'd like. In the example below, `<IncrementButton>` won't re-render when `count` changes.
 
@@ -109,7 +112,7 @@ function Value() {
 };
 ```
 
-> [!IMPORTANT]
-All of the promises I made regarding re-render behavior assume you have the React Compiler enabled. If you do not, you will still have to manually memoize state inside `useInternalStore`. In the example above, `increment` would need to be wrapped in `useCallback`.
+> [!CAUTION]
+All of the statements made regarding re-render behavior assume you have the React Compiler enabled. If you do not, you will still have to manually memoize state inside `useInternalStore`. In the example above, `increment` would need to be wrapped in `useCallback`.
 
 
