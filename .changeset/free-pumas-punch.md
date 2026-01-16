@@ -1,5 +1,0 @@
----
-"rostra": major
----
-
-Initial release
