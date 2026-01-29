@@ -1,5 +1,11 @@
 # rostra
 
+## 1.0.1
+
+### Patch Changes
+
+- [`3a461a0`](https://github.com/bentsignal/rostra/commit/3a461a043519d35fa70da7404e8e5b079948515e) Thanks [@bentsignal](https://github.com/bentsignal)! - Fix exports for create-store
+
 ## 1.0.0
 
 ### Major Changes
