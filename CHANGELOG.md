@@ -1,5 +1,11 @@
 # rostra
 
+## 1.0.2
+
+### Patch Changes
+
+- [`52d5347`](https://github.com/bentsignal/rostra/commit/52d5347b8a8ce7b863baa1fd14e97d755ff70656) Thanks [@bentsignal](https://github.com/bentsignal)! - The exports were actually better the way they were before, nbd.
+
 ## 1.0.1
 
 ### Patch Changes
