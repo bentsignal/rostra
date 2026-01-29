@@ -115,11 +115,10 @@ function createStore<Props extends object, Value extends object>(
     return useSelector(StoreContext, selector, options);
   }
 
-  const api = Store as unknown as StoreApi<Props, Value>;
-  api.Store = Store;
-  api.useStore = useStore;
-
-  return api;
+  return {
+    Store,
+    useStore,
+  };
 }
 
 export { createStore };

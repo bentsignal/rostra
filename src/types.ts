@@ -65,12 +65,10 @@ type UseStore<Value extends object> = {
   ): SelectedValue;
 };
 
-type StoreApi<Props extends object, Value extends object> = {} & ComponentType<
-  Prettify<Props & ComponentProps>
-> & {
-    Store: ComponentType<Prettify<Props & ComponentProps>>;
-    useStore: UseStore<Value>;
-  };
+type StoreApi<Props extends object, Value extends object> = {
+  Store: ComponentType<Prettify<Props & ComponentProps>>;
+  useStore: UseStore<Value>;
+};
 
 export type {
   Prettify,
